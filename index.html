@@ -162,9 +162,18 @@
     </ul>
         </script>
 
-        <script type="text/ng-template" id="container.html">
+        <script type="text/ng-template" id="container1.html">
             <div class="container-element box box-blue">
                 <div class="column col-md-4" ng-repeat="list in item.columns">
+                    <div class="" ng-include="'list.html'"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </script>
+
+        <script type="text/ng-template" id="container2.html">
+            <div class="container-element box box-blue">
+                <div class="column col-md-6" ng-repeat="list in item.columns">
                     <div class="" ng-include="'list.html'"></div>
                 </div>
                 <div class="clearfix"></div>
@@ -211,10 +220,18 @@
                         id: 2
                     },
                     {
-                        type: "container",
+                        type: "container1",
                         id: 1,
                         columns: [
                             [],
+                            [],
+                            []
+                        ]
+                    },
+                    {
+                        type: "container2",
+                        id: 1,
+                        columns: [
                             [],
                             []
                         ]
@@ -222,7 +239,7 @@
                 ],
                 dropzones: {
                     "A": [{
-                            "type": "container",
+                            "type": "container1",
                             "id": 1,
                             "columns": [
                                 [{
@@ -240,7 +257,7 @@
                             ]
                         },
                         {
-                            "type": "container",
+                            "type": "container2",
                             "id": 2,
                             "columns": [
                                 [{
@@ -254,7 +271,7 @@
                             ]
                         },
                         {
-                            "type": "container",
+                            "type": "container2",
                             "id": 3,
                             "columns": [
                                 [{
