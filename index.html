@@ -12,7 +12,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
     <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/angular-drag-and-drop-lists/2.1.0/angular-drag-and-drop-lists.min.js">
+        src="https://cdnjs.cloudflare.com/ajax/libs/angular-drag-and-drop-lists/2.1.0/angular-drag-and-drop-lists.js">
     </script>
 
     <style>
@@ -149,7 +149,7 @@
 <body>
     <div ng-app="workout" ng-controller="workoutController" class="nestedDemo">
 
-        <script type="text/ng-template" id="list.html">
+        <!-- <script type="text/ng-template" id="list.html">
             <ul dnd-list="list">
                 <li ng-repeat="item in list"
                     dnd-draggable="item"
@@ -189,8 +189,6 @@
             </div>
         </script>
 
-        <!-- Template for a normal list item -->
-
         <script type="text/ng-template" id="income.html">
             <div class="item">income</div>
         </script>
@@ -223,14 +221,18 @@
             <div class="row">
                 <div ng-repeat="(zone, list) in models.dropzones" class="col-md-12">
                     <div class="dropzone box box-yellow">
-                        <!-- The dropzone also uses the list template -->
                         <div class="" ng-include="'list.html'"></div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
-        
+        <ul dnd-list="list">
+            <li ng-repeat="item in list" dnd-draggable="item" dnd-moved="vm.moved(list)" dnd-effect-allowed="move"
+                dnd-selected="models.selected = item" ng-class="{'selected': models.selected === item}">
+                {{item}}
+            </li>
+        </ul>
 
     </div>
 
@@ -242,60 +244,86 @@
 
         function workoutController($scope) {
 
+            var vm = this;
+            vm.moved = moved;
+
+            $scope.list = ["A", "B"];
+
             $scope.models = {
                 selected: null,
-                dropzones: {
-                    "A": [{
-                            "type": "container1",
-                            "id": 1,
-                            "columns": [
-                                [{
-                                    "type": "income",
-                                    "id": "1"
-                                }],
-                                [{
-                                    "type": "expense",
-                                    "id": "2"
-                                }],
-                                [{
-                                    "type": "profit",
-                                    "id": "3"
-                                }]
-                            ]
-                        },
-                        {
-                            "type": "container2",
-                            "id": 2,
-                            "columns": [
-                                [{
-                                    "type": "recent",
-                                    "id": "1"
-                                }],
-                                [{
-                                    "type": "feed",
-                                    "id": "3"
-                                }]
-                            ],
-                            "max": 2
-                        },
-                        {
-                            "type": "container3",
-                            "id": 3,
-                            "columns": [
-                                [{
-                                    "type": "client",
-                                    "id": "1"
-                                }],
-                                [{
-                                    "type": "file",
-                                    "id": "3"
-                                }]
-                            ]
-                        }
-                    ],
+                lists: {
+                    "A": [],
+                    "B": []
                 }
             };
 
+            // Generate initial model
+            for (var i = 1; i <= 3; ++i) {
+                $scope.models.lists.A.push({
+                    label: "Item A" + i
+                });
+                $scope.models.lists.B.push({
+                    label: "Item B" + i
+                });
+            }
+
+            function moved(list) {
+                list.splice($index, 1);
+            }
+
+            // $scope.models = {
+            //     selected: null,
+            //     dropzones: {
+            //         "A": [{
+            //                 "type": "container1",
+            //                 "id": 1,
+            //                 "columns": [
+            //                     [{
+            //                         "type": "income",
+            //                         "id": "1"
+            //                     }],
+            //                     [{
+            //                         "type": "expense",
+            //                         "id": "2"
+            //                     }],
+            //                     [{
+            //                         "type": "profit",
+            //                         "id": "3"
+            //                     }]
+            //                 ]
+            //             },
+            //             {
+            //                 "type": "container2",
+            //                 "id": 2,
+            //                 "columns": [
+            //                     [{
+            //                         "type": "recent",
+            //                         "id": "1"
+            //                     }],
+            //                     [{
+            //                         "type": "feed",
+            //                         "id": "3"
+            //                     }]
+            //                 ],
+            //                 "max": 2
+            //             },
+            //             {
+            //                 "type": "container3",
+            //                 "id": 3,
+            //                 "columns": [
+            //                     [{
+            //                         "type": "client",
+            //                         "id": "1"
+            //                     }],
+            //                     [{
+            //                         "type": "file",
+            //                         "id": "3"
+            //                     }]
+            //                 ]
+            //             }
+            //         ],
+            //     }
+            // };
         }
     </script>
 </body>
