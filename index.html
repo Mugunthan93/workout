@@ -15,6 +15,7 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/angular-drag-and-drop-lists/2.1.0/angular-drag-and-drop-lists.js">
     </script>
 
+    <!--Nested styling-->
     <style>
         /***************************** Dropzone Styling *****************************/
 
@@ -144,12 +145,60 @@
         }
     </style>
 
+    <!--Simple styling-->
+    <style>
+        .simpleDemo ul[dnd-list] {
+            min-height: 42px;
+            padding-left: 0px;
+        }
+
+        /**
+ * The dndDraggingSource class will be applied to
+ * the source element of a drag operation. It makes
+ * sense to hide it to give the user the feeling
+ * that he's actually moving it.
+ */
+        .simpleDemo ul[dnd-list] .dndDraggingSource {
+            display: none;
+        }
+
+        /**
+ * An element with .dndPlaceholder class will be
+ * added to the dnd-list while the user is dragging
+ * over it.
+ */
+        .simpleDemo ul[dnd-list] .dndPlaceholder {
+            background-color: #ddd;
+            display: block;
+            min-height: 42px;
+        }
+
+        .simpleDemo ul[dnd-list] li {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-top-right-radius: 4px;
+            border-top-left-radius: 4px;
+            display: block;
+            padding: 10px 15px;
+            margin-bottom: -1px;
+        }
+
+        /**
+ * Show selected elements in green
+ */
+        .simpleDemo ul[dnd-list] li.selected {
+            background-color: #dff0d8;
+            color: #3c763d;
+        }
+    </style>
+
 </head>
 
 <body>
-    <div ng-app="workout" ng-controller="workoutController" class="nestedDemo">
+    <div ng-app="workout" ng-controller="workoutController" class="nestedDemo simpleDemo">
 
-        <!-- <script type="text/ng-template" id="list.html">
+
+        <script type="text/ng-template" id="list.html">
             <ul dnd-list="list">
                 <li ng-repeat="item in list"
                     dnd-draggable="item"
@@ -225,14 +274,23 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
 
-        <ul dnd-list="list">
-            <li ng-repeat="item in list" dnd-draggable="item" dnd-moved="vm.moved(list)" dnd-effect-allowed="move"
-                dnd-selected="models.selected = item" ng-class="{'selected': models.selected === item}">
-                {{item}}
-            </li>
-        </ul>
+        <hr>
+
+        <div class="col-md-12">
+            <div class="row">
+                <div ng-repeat="list in models2.lists" class="col-md-6">
+                    <ul dnd-list="list">
+                        <li ng-repeat="item in list" ng-repeat="item in list" dnd-draggable="item"
+                            dnd-moved="list.splice($index, 1)" dnd-effect-allowed="move"
+                            dnd-selected="models.selected = item" ng-class="{'selected': models.selected === item}">
+                            {{item.label}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
     </div>
 
@@ -245,85 +303,86 @@
         function workoutController($scope) {
 
             var vm = this;
-            vm.moved = moved;
 
-            $scope.list = ["A", "B"];
-
-            $scope.models = {
-                selected: null,
-                lists: {
-                    "A": [],
-                    "B": []
+            $scope.models2 = {
+                "selected": null,
+                "lists": {
+                    "A": [{
+                            "label": "Item A1"
+                        },
+                        {
+                            "label": "Item A2"
+                        },
+                        {
+                            "label": "Item A3"
+                        }
+                    ],
+                    "B": [{
+                            "label": "Item B1"
+                        },
+                        {
+                            "label": "Item B2"
+                        },
+                        {
+                            "label": "Item B3"
+                        }
+                    ]
                 }
             };
 
-            // Generate initial model
-            for (var i = 1; i <= 3; ++i) {
-                $scope.models.lists.A.push({
-                    label: "Item A" + i
-                });
-                $scope.models.lists.B.push({
-                    label: "Item B" + i
-                });
-            }
-
-            function moved(list) {
-                list.splice($index, 1);
-            }
-
-            // $scope.models = {
-            //     selected: null,
-            //     dropzones: {
-            //         "A": [{
-            //                 "type": "container1",
-            //                 "id": 1,
-            //                 "columns": [
-            //                     [{
-            //                         "type": "income",
-            //                         "id": "1"
-            //                     }],
-            //                     [{
-            //                         "type": "expense",
-            //                         "id": "2"
-            //                     }],
-            //                     [{
-            //                         "type": "profit",
-            //                         "id": "3"
-            //                     }]
-            //                 ]
-            //             },
-            //             {
-            //                 "type": "container2",
-            //                 "id": 2,
-            //                 "columns": [
-            //                     [{
-            //                         "type": "recent",
-            //                         "id": "1"
-            //                     }],
-            //                     [{
-            //                         "type": "feed",
-            //                         "id": "3"
-            //                     }]
-            //                 ],
-            //                 "max": 2
-            //             },
-            //             {
-            //                 "type": "container3",
-            //                 "id": 3,
-            //                 "columns": [
-            //                     [{
-            //                         "type": "client",
-            //                         "id": "1"
-            //                     }],
-            //                     [{
-            //                         "type": "file",
-            //                         "id": "3"
-            //                     }]
-            //                 ]
-            //             }
-            //         ],
-            //     }
-            // };
+            $scope.models = {
+                selected: null,
+                dropzones: {
+                    "A": [{
+                            "type": "container1",
+                            "id": 1,
+                            "columns": [
+                                [{
+                                    "type": "income",
+                                    "id": "1"
+                                }],
+                                [{
+                                    "type": "expense",
+                                    "id": "2"
+                                }],
+                                [{
+                                    "type": "profit",
+                                    "id": "3"
+                                }]
+                            ]
+                        },
+                        {
+                            "type": "container2",
+                            "id": 2,
+                            "columns": [
+                                [{
+                                    "type": "recent",
+                                    "id": "1"
+                                }],
+                                [{
+                                    "type": "feed",
+                                    "id": "3"
+                                }]
+                            ],
+                            "max": 2
+                        },
+                        {
+                            "type": "container3",
+                            "id": 3,
+                            "columns": [
+                                [{
+                                    "type": "client",
+                                    "id": "1"
+                                }],
+                                [{
+                                    "type": "file",
+                                    "id": "3"
+                                }]
+                            ]
+                        }
+                    ],
+                }
+            };
         }
     </script>
 </body>
