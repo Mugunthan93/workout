@@ -149,6 +149,7 @@
 <body>
     <div ng-app="workout" ng-controller="workoutController" class="nestedDemo">
 
+<<<<<<< HEAD
         <script type="text/ng-template" id="list.html">
             <ul dnd-list="list">
                 <li ng-repeat="item in list"
@@ -160,10 +161,25 @@
                     ng-include="item.type + '.html'">
                 </li>
             </ul>  
+=======
+        <div>
+
+            <script type="text/ng-template" id="list.html">
+                <ul dnd-list="list">
+        <li ng-repeat="item in list"
+            dnd-draggable="item"
+            dnd-effect-allowed="move"
+            dnd-moved="list.splice($index, 1)"
+            dnd-selected="models.selected = item"
+            ng-class="{selected: models.selected === item}"
+            ng-include="item.type + '.html'">
+        </li>
+    </ul>
+>>>>>>> 83e6a1cb2a7b62eabbf592f2253e37be89a9b5bc
         </script>
 
-        <script type="text/ng-template" id="container1.html">
-            <div class="container-element box box-blue">
+            <script type="text/ng-template" id="container1.html">
+                <div class="container-element box box-blue">
                 <div class="column col-md-4" ng-repeat="list in item.columns">
                     <div class="" ng-include="'list.html'"></div>
                 </div>
@@ -171,8 +187,8 @@
             </div>
         </script>
 
-        <script type="text/ng-template" id="container2.html">
-            <div class="container-element box box-blue">
+            <script type="text/ng-template" id="container2.html">
+                <div class="container-element box box-blue">
                 <div class="column col-md-6" ng-repeat="list in item.columns">
                     <div class="" ng-include="'list.html'"></div>
                 </div>
@@ -180,20 +196,68 @@
             </div>
         </script>
 
-        <script type="text/ng-template" id="item.html">
-            <div class="item">Item {{item.id}}</div>
+            <script type="text/ng-template" id="container3.html">
+                <div class="container-element box box-blue">
+                <div class="column col-md-6" ng-repeat="list in item.columns">
+                    <div class="" ng-include="'list.html'"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
         </script>
 
+            <!-- Template for a normal list item -->
+
+            <script type="text/ng-template" id="income.html">
+                <div class="item">income</div>
+        </script>
+
+            <script type="text/ng-template" id="expense.html">
+                <div class="item">expense</div>
+        </script>
+
+            <script type="text/ng-template" id="profit.html">
+                <div class="item">profit</div>
+        </script>
+
+<<<<<<< HEAD
         <div class="col-md-12">
             <div class="row">
                 <div ng-repeat="(zone, list) in models.dropzones" class="col-md-12">
                     <div class="dropzone box box-yellow">
                         <!-- The dropzone also uses the list template -->
                         <div ng-include="'list.html'"></div>
+=======
+            <script type="text/ng-template" id="recent.html">
+                <div class="item">recent</div>
+        </script>
+
+            <script type="text/ng-template" id="feed.html">
+                <div class="item">feed</div>
+        </script>
+
+            <script type="text/ng-template" id="client.html">
+                <div class="item">client</div>
+        </script>
+
+            <script type="text/ng-template" id="file.html">
+                <div class="item">file</div>
+        </script>
+
+            <div class="col-md-12">
+                <div class="row">
+                    <div ng-repeat="(zone, list) in models.dropzones" class="col-md-12">
+                        <div class="dropzone box box-yellow">
+                            <!-- The dropzone also uses the list template -->
+                            <div class="" ng-include="'list.html'"></div>
+                        </div>
+>>>>>>> 83e6a1cb2a7b62eabbf592f2253e37be89a9b5bc
                     </div>
                 </div>
             </div>
+
         </div>
+
+
 
     </div>
 
@@ -206,43 +270,21 @@
         function workoutController($scope) {
             $scope.models = {
                 selected: null,
-                templates: [{
-                        type: "item",
-                        id: 2
-                    },
-                    {
-                        type: "container1",
-                        id: 1,
-                        columns: [
-                            [],
-                            [],
-                            []
-                        ]
-                    },
-                    {
-                        type: "container2",
-                        id: 1,
-                        columns: [
-                            [],
-                            []
-                        ]
-                    }
-                ],
                 dropzones: {
                     "A": [{
                             "type": "container1",
                             "id": 1,
                             "columns": [
                                 [{
-                                    "type": "item",
+                                    "type": "income",
                                     "id": "1"
                                 }],
                                 [{
-                                    "type": "item",
+                                    "type": "expense",
                                     "id": "2"
                                 }],
                                 [{
-                                    "type": "item",
+                                    "type": "profit",
                                     "id": "3"
                                 }]
                             ]
@@ -252,25 +294,26 @@
                             "id": 2,
                             "columns": [
                                 [{
-                                    "type": "item",
+                                    "type": "recent",
                                     "id": "1"
                                 }],
                                 [{
-                                    "type": "item",
+                                    "type": "feed",
                                     "id": "3"
                                 }]
-                            ]
+                            ],
+                            "max": 2
                         },
                         {
-                            "type": "container2",
+                            "type": "container3",
                             "id": 3,
                             "columns": [
                                 [{
-                                    "type": "item",
+                                    "type": "client",
                                     "id": "1"
                                 }],
                                 [{
-                                    "type": "item",
+                                    "type": "file",
                                     "id": "3"
                                 }]
                             ]
@@ -278,6 +321,10 @@
                     ],
                 }
             };
+<<<<<<< HEAD
+=======
+
+>>>>>>> 83e6a1cb2a7b62eabbf592f2253e37be89a9b5bc
         }
     </script>
 </body>
