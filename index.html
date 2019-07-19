@@ -327,7 +327,7 @@
             </div>
         </script>
 
-        <script type="text/ng-template" id="container2.html">
+        <script type="text/ng-template" id="container3.html">
             <div class="container-element box box-blue">
                 <div class="column col-md-6" ng-repeat="list in item.columns">
                     <div class="" ng-include="'list.html'"></div>
@@ -336,9 +336,18 @@
             </div>
         </script>
 
-        <script type="text/ng-template" id="container3.html">
+        <script type="text/ng-template" id="container4.html">
             <div class="container-element box box-blue">
                 <div class="column col-md-6" ng-repeat="list in item.columns">
+                    <div class="" ng-include="'list.html'"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </script>
+
+        <script type="text/ng-template" id="container2.html">
+            <div class="container-element box box-blue">
+                <div class="column col-md-12" ng-repeat="list in item.columns">
                     <div class="" ng-include="'list.html'"></div>
                 </div>
                 <div class="clearfix"></div>
@@ -478,49 +487,54 @@
                 selected: null,
                 dropzones: {
                     "A": [{
-                            "type": "container1",
-                            "id": 1,
-                            "columns": [
+                            type: "container1",
+                            id: 1,
+                            columns: [
                                 [{
-                                    "type": "income",
-                                    "id": "1"
+                                    type: "income",
+                                    id: 2
                                 }],
                                 [{
-                                    "type": "expense",
-                                    "id": "2"
-                                }],
-                                [{
-                                    "type": "profit",
-                                    "id": "3"
+                                    type: "expense",
+                                    id: 2
                                 }]
                             ]
                         },
                         {
-                            "type": "container2",
-                            "id": 2,
-                            "columns": [
+                            type: "container2",
+                            id: 1,
+                            columns: [
                                 [{
-                                    "type": "recent",
-                                    "id": "1"
-                                }],
-                                [{
-                                    "type": "feed",
-                                    "id": "3"
+                                    type: "profit",
+                                    id: 2
                                 }]
-                            ],
-                            "max": 2
+                            ]
                         },
                         {
-                            "type": "container3",
-                            "id": 3,
-                            "columns": [
+                            type: "container3",
+                            id: 1,
+                            columns: [
                                 [{
-                                    "type": "client",
-                                    "id": "1"
+                                    type: "recent",
+                                    id: 2
                                 }],
                                 [{
-                                    "type": "file",
-                                    "id": "3"
+                                    type: "feed",
+                                    id: 2
+                                }]
+                            ]
+                        },
+                        {
+                            type: "container4",
+                            id: 1,
+                            columns: [
+                                [{
+                                    type: "client",
+                                    id: 2
+                                }],
+                                [{
+                                    type: "file",
+                                    id: 2
                                 }]
                             ]
                         }
